@@ -1,0 +1,73 @@
+
+  <section id="cover" class="min-vh-100">
+    <div id="cover-caption">
+        <div class="container ">
+          <div class="row">  
+          <div class="col">
+            <div class="row text-white">
+                <div class=" form p-4">
+                    <h1 class="display-4 py-2 text-truncate">ADD BUYING
+                    </h1>
+                    <h4 class="display-8 py-1 text-truncate">AND
+                    </h4>
+                    <h1 class="display-7 py-1 text-truncate">CHECK STATUS
+                    </h1>
+                    <div class="px-2">
+                        <form class="justify-content-center" [formGroup]="myForm" (ngSubmit)="add_userdetail(myForm)">
+                            <div class="form-group">
+                               
+                                <input type="text" class="form-control" placeholder="Name" formControlName="name">
+                                <div *ngIf="myForm.get('name')?.invalid  && (myForm.get('name')?.dirty || myForm.get('name')?.touched)">
+                                  <small class="text-danger">Name is required</small>
+                                </div>
+                            </div>
+                            <p></p>
+                            <div class="form-group">
+                             
+                              <input type="text" class="form-control col-sm-5" placeholder="Phone number" name="mobile" formControlName="mobile">
+                              <div *ngIf="myForm.get('mobile')?.invalid  && (myForm.get('mobile')?.dirty || myForm.get('mobile')?.touched)">
+                                <small class="text-danger">Enter valid mobile number</small>
+                              </div>
+                          </div>
+                          <p></p>
+                            <div class="form-group">
+                              
+                              <input type="text" class="form-control col-sm-2" placeholder="Stock name" formControlName="stock" name="stock">
+                          </div>
+                          <p></p>
+                            <div class="form-group">
+        
+                              <input type="number" class="form-control col-sm-2" placeholder="Quantity" name="qty" formControlName="qty" >
+                          </div>
+                          <div>
+                            <button type="submit" class="btn btn-success btn-lg mt-3 mx-3" [disabled]="myForm.invalid">BUY</button>
+                            
+                            <button type="button" (click)="show_price(myForm)" [disabled]="myForm.get('stock')?.invalid" id="btnsubmit" class="btn btn-primary btn-lg mt-3 ml-3 mx-3">CHECK PRICE</button>
+
+                            <button type="button" (click)="status(myForm)" [disabled]="myForm.get('mobile')?.invalid" class="btn btn-dark btn-lg mt-3 mx-3">STATUS</button>
+                            <div id="clsecond">{{stock}}</div>
+                            <div>{{status$}}</div>
+                          </div>
+                          </form>
+                        <div id="cl">
+                        </div>
+                    </div>
+                </div>
+            </div>
+          </div>
+          <div class="col">
+            <div class="row text-white">
+              <div class=" form p-4">
+                  <h1 class="display-4 py-2 text-truncate">STATUS
+                  </h1>
+                  <ul class="list-group" id="stocklist">
+                  </ul> 
+              </div>
+          </div>
+        </div>
+          </div>
+        </div>
+          </div>
+</section>
+    
+

@@ -7,48 +7,6 @@
   <title>Service Checking</title>
 </head>
 <body>
-  <section id="cover" class="min-vh-100">
-    <div id="cover-caption">
-        <div class="container">
-            <div class="row text-white">
-                <div class="col-xl-5 col-lg-6 col-md-8 col-sm-10 mx-auto text-center form p-4">
-                    <h1 class="display-4 py-2 text-truncate">DO STOCKS</h1>
-
-                    <div class="px-2">
-                        <form #userform="ngForm" action="" class="justify-content-center">
-                            <div class="form-group">
-                                <label class="sr-only">Name</label>
-                                <input type="text" class="form-control" placeholder="Jane" name="firstname" ngModel>
-                            </div>
-                            <div class="form-group">
-                              <label class="sr-only">Mobile No.</label>
-                              <input type="text" class="form-control" placeholder="8302438022" name="mobile" ngModel>
-                          </div>
-                            <div class="form-group">
-                              <label class="sr-only">Stock Name</label>
-                              <input type="text" class="form-control" placeholder="IBM" ngModel name="stock">
-                          </div>
-                            <div class="form-group">
-                              <label class="sr-only">Quantity</label>
-                              <input type="number" class="form-control" placeholder="2" name="qty" ngModel>
-                          </div>
-                          <div>
-                            <button type="submit" (click)="add_userdetail(userform.value)" class="btn btn-success btn-lg mt-3 mx-3">BUY</button>
-                
-                            <button type="button" (click)="show_price(userform.value)" class="btn btn-primary btn-lg mt-3 ml-3 mx-3">CHECK PRICE</button>
-
-                            <button type="button" class="btn btn-dark btn-lg mt-3 mx-3">STATUS</button>
-                        {{stock}}
-                          </div>
-                          </form>
-                        <div id="cl">
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-    
+  <router-outlet></router-outlet>
 </body>
 </html>

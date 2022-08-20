@@ -30,8 +30,8 @@ describe('AppComponent', () => {
   });
 
 
-// Just for testing purpose
-describe("Working on test case",function(){
+  // Just for testing purpose
+xdescribe("Working on test case",function(){
   let a;
   it("It is a spec...",function(){
     a=true;
