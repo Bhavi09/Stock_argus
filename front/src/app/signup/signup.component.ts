@@ -12,13 +12,13 @@ export class SignupComponent implements OnInit {
   
   myForm!:FormGroup;
   constructor(private router:Router,private backservice: BackService) {
+    console.log("Signup page is rendered");
   }
-
   ngOnInit(): void {
     this.myForm = new FormGroup({
-      email : new FormControl('',[Validators.required]),
-      password : new FormControl('',[Validators.required]),
-      Repassword : new FormControl('',[Validators.required])
+      email : new FormControl('',[Validators.required,Validators.email]),
+      password : new FormControl('',[Validators.required,Validators.pattern('^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{6,16}$')]),
+      Repassword : new FormControl('',[Validators.required,Validators.pattern('^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{6,16}$')])
     })
   }
    tologin(Form:FormGroup) {

@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
+import { RouterModule, Routes} from '@angular/router';
 import { AppComponent } from './app.component';
+import { AuthGuard } from './auth.guard';
 import { LoginComponent } from './login/login.component';
 import { SignupComponent } from './signup/signup.component';
 import { StocksComponent } from './stocks/stocks.component';
@@ -8,7 +9,9 @@ import { StocksComponent } from './stocks/stocks.component';
 const routes: Routes = [
 {
   path:'stock',
-  component:StocksComponent
+  component:StocksComponent,
+  canActivate:[AuthGuard]
+
 },
 {
   path:'',
@@ -17,6 +20,10 @@ const routes: Routes = [
 {
   path:'signup',
   component:SignupComponent
+},
+{
+  path:'**',
+  component:LoginComponent
 }
 ];
 

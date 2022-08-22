@@ -7,26 +7,23 @@ import { Observable, Subject } from 'rxjs';
 })
 export class BackService {
 
-  private subject = new Subject<any>();
-
-  sendMessage(message:string)
-  {
-    this.subject.next(message);
-  }
-  getmessage():Observable<any>{
-    return this.subject.asObservable();
-  }
+  email="";
   constructor(private _http:HttpClient) {}
 
+  communicatemessage(msg:any){
+    console.log("Communicate message is called");
+    this.email=msg;
+  }
   getprice(name:any):Observable<object>{
     return this._http.get(`https://www.alphavantage.co/query?function=GLOBAL_QUOTE&symbol=${name}&apikey=TM0KKBA3TUNIU9US`); 
   }
-  adduser(name:any,mobile:any,stock:any,qty:any,invested:any):Observable<object>{
+  adduser(email:any,stock:any,qty:any,invested:any):Observable<object>{
     console.log("Add user function is called...");
-    return this._http.get(`http://localhost:3000/user?name=${name}&id=${mobile}&stockname=${stock}&qty=${qty}&invested=${invested}`); 
+    return this._http.get(`http://localhost:3000/user?&id=${email}&stockname=${stock}&qty=${qty}&invested=${invested}`); 
   }
-  getstatus(mobile:any):Observable<object>{
-    return this._http.get(`http://localhost:3000/getstatus?id=${mobile}`)
+  getstatus(email:any):Observable<object>{
+    console.log("Get status is called");
+    return this._http.get(`http://localhost:3000/getstatus?id=${email}`)
   }
   login(email:any,password:any):Observable<object>{
     console.log("back service login function called...")

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { BackService } from '../back.service';
+import { AuthGuard } from '../auth.guard';
 
 
 @Component({
@@ -12,7 +13,7 @@ import { BackService } from '../back.service';
 export class LoginComponent implements OnInit {
 
   myForm!: FormGroup;
-  constructor(private router: Router, private backservice: BackService) { }
+  constructor(private router: Router, private backservice: BackService, private authg :AuthGuard) { }
 
   ngOnInit(): void {
     this.myForm = new FormGroup({
@@ -31,7 +32,15 @@ export class LoginComponent implements OnInit {
     })
     get.then((value) => {
       if (value["message"] == "User logged in") {
+        console.log("Before Subject: "+Form.value.email);
+        sessionStorage.setItem('email',Form.value.email);
+        this.backservice.communicatemessage(Form.value.email);
+        this.authg.isUser = true;
+        sessionStorage.setItem('status',"true");
         this.router.navigateByUrl('/stock');
+      }
+      else{
+        sessionStorage.setItem('status',"false");
       }
     });
   }

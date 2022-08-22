@@ -14,18 +14,18 @@ export class StocksComponent implements OnInit {
   chprice:any;
   stock ="";
   status$="";
-  myForm!:FormGroup
-  usermail =""
+  myForm!:FormGroup;
+  email:any
+  click=0;
+  price:any;
   constructor(private backservice:BackService) { 
+    console.log("HEllo from stock department");
   }
 
   ngOnInit(): void {
-    this.backservice.getmessage().subscribe(message =>{
-      this.usermail = message;
-    })
+    this.email = sessionStorage.getItem('email');
+    console.log(this.email);
     this.myForm = new FormGroup({
-      name: new FormControl(this.usermail,[]),
-      mobile: new FormControl('',[Validators.pattern("^[0-9]*$"),Validators.minLength(10),Validators.maxLength(10),Validators.required]),
       stock : new FormControl('',[Validators.required]),
       qty : new FormControl('',[])
   })
@@ -42,11 +42,7 @@ show_price(Form:FormGroup){
   })
   get.then((value)=>{
   this.val$ = value;
-  const el = document.createElement('div');
-  el.setAttribute('id','cls');
-  el.innerHTML = `${this.val$["Global Quote"]["05. price"]}`;
-  const box = document.getElementById('cl');
-  box?.appendChild(el);
+  this.price = parseInt(this.val$["Global Quote"]["05. price"])*79;
   })
 } 
 
@@ -66,26 +62,26 @@ add_userdetail(Form:FormGroup){
   this.val$ = value;
   price = Form.value.qty*parseInt(this.val$["Global Quote"]["05. price"])*79;
 
-  this.backservice.adduser(Form.value.name,Form.value.mobile,Form.value.stock,Form.value.qty,price).subscribe({});
+  this.backservice.adduser(this.email,Form.value.stock,Form.value.qty,price).subscribe({});
   Form.reset();
   });
 }
 
-status(Form:FormGroup)
+status()
 {
-  console.log(this.usermail);
   const get = new Promise<any>((resolve,_reject)=>{
-    this.backservice.getstatus(Form.value.mobile).subscribe(
+    this.backservice.getstatus(this.email).subscribe(
       {
         next:res => resolve(res)
       }
     )
   })
   get.then((value)=>{
-    // console.log(value["inddif"]);
 
-    console.log(value["stocksdetail"][1]['s_name']);
+    if(this.click==0)
+    {
     const box = document.getElementById('stocklist');
+    const box2 = document.getElementById('overall');
     for(const element of value["inddif"])
     {
       let color="";
@@ -100,14 +96,27 @@ status(Form:FormGroup)
   <span class="badge bg-${color} rounded-pill">${element['diff']}</span>`;
   box?.appendChild(el);
   }
-  })
+  console.log(value["P&L"])
+  const el2 = document.createElement('div');
+  el2.setAttribute("class","list-group-item d-flex justify-content-between align-items-center")
+  
+  if(parseInt(value["P&L"])>=0)
+  {
+    el2.innerHTML = `<div class="card opacity-75 text-bg-primary mb-3 mx-auto" style="max-width: 24rem;">
+    <div class="card-header">OVERALL</div>
+    <div class="card-body">
+      <h5 class="card-title">Profit of ${value["P&L"]}/h5>
+    </div>
+  </div>`;
+  }
+  else {el2.innerHTML = `<div class="card opacity-75 text-bg-danger mb-3 mx-auto" style="max-width: 24rem;">
+  <div class="card-header">OVERALL</div>
+  <div class="card-body">
+    <h5 class="card-title">Loss of ${value["P&L"]}</h5>
+  </div>`;}
+  box2?.append(el2);
+  this.click=1;
 }
-onSubmit(form:FormGroup)
-{
-  console.log('valid?', form.valid);
-  console.log('name', form.value.name);
-  console.log('mobile', form.value.mobile);
-  console.log('stock', form.value.stock);
-  console.log('qty',form.value.qty);
+  })
 }
 }
