@@ -1,21 +1,21 @@
 import { Injectable } from '@angular/core';
-import { UntypedFormArray } from '@angular/forms';
-import { ActivatedRouteSnapshot, CanActivate, RouterStateSnapshot, UrlTree } from '@angular/router';
-import { Observable } from 'rxjs';
+import { CanActivate, Router } from '@angular/router';
+import ls from "localstorage-slim";
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthGuard implements CanActivate {
   isUser = false;
-  
+  constructor(private router:Router){}
   canActivate() {
-    if(sessionStorage.getItem("status")=="true")
-    {
+    if(ls.get('qsc@1!%^36', { decrypt: true, secret: 88 })=="true")
+    {  
     return true;
     }
     else
     {
+      this.router.navigateByUrl('/');
       return false;
     }
   }

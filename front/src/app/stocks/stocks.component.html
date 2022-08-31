@@ -2,6 +2,11 @@
   <section id="cover" class="min-vh-100">
     <div id="cover-caption">
         <div class="container ">
+          <button type="button" (click)="logout()" class="btn btn-outline-light pull-left">
+            LOGOUT
+              </button>
+          <div id="alertnq">
+        </div>
           <div class="row">  
           <div class="col">
             <div class="row text-white">
@@ -25,12 +30,20 @@
                           </div>
                           <div>
                             <button type="submit" class="btn btn-success btn-lg mt-3 mx-3" [disabled]="myForm.invalid">BUY</button>
-                            
-                            <button type="button" (click)="show_price(myForm)" [disabled]="myForm.get('stock')?.invalid" id="btnsubmit" class="btn btn-primary btn-lg mt-3 ml-3 mx-3" data-bs-toggle="collapse" data-bs-target="#collapseWidthExample" aria-expanded="false" aria-controls="collapseWidthExample">CHECK PRICE</button>
+                            <button type="button" (click)="sellstock(myForm)" [disabled]="myForm.invalid" id="btnsubmit" class="btn btn-danger btn-lg mt-3 ml-3 mx-3" data-bs-toggle="collapse" data-bs-target="#collapseWidthExample" aria-expanded="false" aria-controls="collapseWidthExample">SELL</button>
+                            <button type="button" (click)="show_price(myForm)" [disabled]="myForm.get('stock')?.invalid" id="btnsubmit" class="btn btn-primary btn-lg mt-3 ml-3 mx-3" data-bs-toggle="collapse" data-bs-target="#collapseWidthExample1" aria-expanded="false" aria-controls="collapseWidthExample1">CHECK PRICE</button>
                             <button type="button" (click)="status()" class="btn btn-dark btn-lg mt-3 mx-3">STATUS</button>
                             <p></p>
                             <div style="min-height: 120px;">
                               <div class="collapse collapse-horizontal" id="collapseWidthExample">
+                                <ul class="list-group" id="pl">
+
+                                </ul>
+                              </div>
+                            </div>
+                            <p></p>
+                            <div style="min-height: 120px;">
+                              <div class="collapse collapse-horizontal" id="collapseWidthExample1">
                                 <ul class="list-group">
                                   <li class="list-group-item list-group-item-warning">Stock price: {{price}}</li>
                                 </ul>

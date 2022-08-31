@@ -1,13 +1,14 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, Subject } from 'rxjs';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class BackService {
 
-  email="";
+  status=false;
+  email = "";
   constructor(private _http:HttpClient) {}
 
   communicatemessage(msg:any){
@@ -24,6 +25,10 @@ export class BackService {
   getstatus(email:any):Observable<object>{
     console.log("Get status is called");
     return this._http.get(`http://localhost:3000/getstatus?id=${email}`)
+  }
+  sell(email:any,stock:any,qty:any):Observable<object>{
+    console.log("Back service of email is called");
+    return this._http.get(`http://localhost:3000/sell?id=${email}&name=${stock}&qty=${qty}`);
   }
   login(email:any,password:any):Observable<object>{
     console.log("back service login function called...")

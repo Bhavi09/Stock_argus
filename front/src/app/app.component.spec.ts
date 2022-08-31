@@ -23,20 +23,10 @@ describe('AppComponent', () => {
     expect(app).toBeTruthy();
   });
 
-  it(`should have as title 'front'`, () => {
+  xit(`should have as title 'front'`, () => {
     const fixture = TestBed.createComponent(AppComponent);
     const app = fixture.debugElement.componentInstance;
     expect(app.title).toEqual('front');
   });
-
-
-  // Just for testing purpose
-xdescribe("Working on test case",function(){
-  let a;
-  it("It is a spec...",function(){
-    a=true;
-    expect(a).toBe(true);
-  });
-}
-);
+  
 });
