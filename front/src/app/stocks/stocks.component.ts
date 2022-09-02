@@ -19,7 +19,7 @@ export class StocksComponent implements OnInit {
   myForm!: FormGroup;
   email: any
   click = 0;
-  price: any;
+  price = 0;
   pl: any;
   constructor(private backservice: BackService ,private router:Router) {
     console.log("Hello from stock department");
@@ -34,7 +34,7 @@ export class StocksComponent implements OnInit {
     console.log(this.email);
     this.myForm = new FormGroup({
       stock: new FormControl('', [Validators.required,Validators.pattern("^[a-zA-Z ]*$")]),
-      qty: new FormControl('', [Validators.required])
+      qty: new FormControl('', [Validators.required,Validators.minLength(1)])
     })
   }
   show_price(Form: FormGroup) {

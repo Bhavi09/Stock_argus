@@ -20,7 +20,7 @@ export class BackService {
   }
   adduser(email:any,stock:any,qty:any,invested:any):Observable<object>{
     console.log("Add user function is called...");
-    return this._http.get(`http://localhost:3000/user?&id=${email}&stockname=${stock}&qty=${qty}&invested=${invested}`); 
+    return this._http.post("http://localhost:3000/user",{id:email,stockname:stock,qty:qty,invested:invested}); 
   }
   getstatus(email:any):Observable<object>{
     console.log("Get status is called");
@@ -28,7 +28,7 @@ export class BackService {
   }
   sell(email:any,stock:any,qty:any):Observable<object>{
     console.log("Back service of email is called");
-    return this._http.get(`http://localhost:3000/sell?id=${email}&name=${stock}&qty=${qty}`);
+    return this._http.post("http://localhost:3000/sell",{id:email,name:stock,qty:qty});
   }
   login(email:any,password:any):Observable<object>{
     console.log("back service login function called...")
