@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import ls from "localstorage-slim";
 
 @Injectable({
   providedIn: 'root'
@@ -20,6 +21,7 @@ export class BackService {
   }
   adduser(email:any,stock:any,qty:any,invested:any):Observable<object>{
     console.log("Add user function is called...");
+    let actoken = ls.get('wqewq234!2@', { decrypt: true, secret: 88 });
     return this._http.post("http://localhost:3000/user",{id:email,stockname:stock,qty:qty,invested:invested}); 
   }
   getstatus(email:any):Observable<object>{
@@ -28,7 +30,8 @@ export class BackService {
   }
   sell(email:any,stock:any,qty:any):Observable<object>{
     console.log("Back service of email is called");
-    return this._http.post("http://localhost:3000/sell",{id:email,name:stock,qty:qty});
+    let actoken = ls.get('wqewq234!2@', { decrypt: true, secret: 88 });
+    return this._http.post("http://localhost:3000/sell",{id:email,name:stock,qty:qty,actoken:actoken});
   }
   login(email:any,password:any):Observable<object>{
     console.log("back service login function called...")

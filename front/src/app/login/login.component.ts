@@ -4,14 +4,15 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { BackService } from '../back.service';
 import { AuthGuard } from '../auth.guard';
 import ls from "localstorage-slim";
-
+                                                                                                                                                                    
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
-
+  
+  elsecheck = 0;
   myForm!: FormGroup;
   constructor(private router: Router, private backservice: BackService, private authg: AuthGuard) { }
 
@@ -41,6 +42,7 @@ export class LoginComponent implements OnInit {
         this.router.navigateByUrl('/stock');
       }
       else {
+        this.elsecheck=1;
         console.log("else statement is called");
         const box1 = document.getElementById("alertnq");
         const el1 = document.createElement('div');
@@ -52,6 +54,9 @@ export class LoginComponent implements OnInit {
         Form.reset();
       }
     });
+  }
+  isFormValid():Boolean{
+    return this.myForm.valid;
   }
 
 }
