@@ -20,11 +20,8 @@
                 <form class="justify-content-center" [formGroup]="myForm" (ngSubmit)="add_userdetail(myForm)">
                   <div class="form-group --stockname">
                     <label>Stock Name</label>
-                    <select type="text" class="form-control col-sm-2" formControlName="stock" name="stock">
-                      <option value="goog">Google</option>
-                      <option value="IBM">IBM</option>
-                      <option value="tsla">Telsa</option>
-                      <option value="jnj">Jhonson and Jhonson</option>
+                    <select type="text" class="form-control custom-select col-sm-2" formControlName="stock" name="stock" required>
+                      <option *ngFor="let stockname of stocknames" value="{{stockname.sname}}">{{stockname.name}}</option>
                     </select>
           
                   </div>

@@ -1,6 +1,6 @@
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, fakeAsync, TestBed } from '@angular/core/testing';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -41,11 +41,9 @@ describe('LoginComponent', () => {
     fixture.detectChanges();
   });
   beforeEach(async()=>{
-    activatedRoute = TestBed.inject(ActivatedRoute);
+
     service = TestBed.inject(BackService);
-    http = TestBed.inject(HttpClient);
-    httpMock = TestBed.inject(HttpTestingController);
-    router = TestBed.inject(Router);
+   
     fixture.detectChanges();
   })
 
@@ -118,10 +116,10 @@ describe('LoginComponent', () => {
     expect(fnc).toHaveBeenCalled();
   });
 
-  it("should check creation of div element when an error is send through response",()=>{
+  it("should check creation of div element when an error is send through response",fakeAsync(async ()=>{
     spyOn(service,'login').and.returnValue(of({message: "User does not exist"}));
     component.tostock(component.myForm);
-    fixture.detectChanges();
+    await fixture.detectChanges();
     expect(component.elsecheck).toEqual(1);
-  })
+  }));
 });
