@@ -11,9 +11,15 @@ import { BackService } from '../back.service';
 export class SignupComponent implements OnInit {
   
   myForm!:FormGroup;
+
+  // ************************* CONSTRUCTOR ****************************************
+
   constructor(private router:Router,private backservice: BackService) {
     console.log("Signup page is rendered");
   }
+
+  //************************** ngOnInit ********************************************
+   
   ngOnInit(): void {
     this.myForm = new FormGroup({
       email : new FormControl('',[Validators.required,Validators.email]),
@@ -21,6 +27,9 @@ export class SignupComponent implements OnInit {
       Repassword : new FormControl('',[Validators.required,Validators.pattern('^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{6,16}$')])
     })
   }
+
+  // **************** TO LOGIN FUNCTION ****************************************
+
    tologin(Form:FormGroup) {
     const get = new Promise<any>((resolve, _reject) => {
       console.log("Checked Promise...")

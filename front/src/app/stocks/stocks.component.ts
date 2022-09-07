@@ -42,6 +42,9 @@ export class StocksComponent implements OnInit {
       qty: new FormControl('', [Validators.required, Validators.minLength(1)])
     })
   }
+
+  // ************************ SHOW PRICE FUNCTION ***********************************
+
   show_price(Form: FormGroup) {
     console.log("Before subscribe")
     this.stock = Form.value.stock;
@@ -58,7 +61,7 @@ export class StocksComponent implements OnInit {
     })
   }
 
-
+// ************************** ADD USER BUYING FUNCTION *************************
 
   add_userdetail(Form: FormGroup) {
     let pricef: any;
@@ -94,6 +97,7 @@ export class StocksComponent implements OnInit {
             document.getElementById('forclickremove2')?.remove();
             this.click = 0;
             this.status();
+            this.myForm.reset();
           }
         }
         else {
@@ -109,6 +113,9 @@ export class StocksComponent implements OnInit {
       })
     });
   }
+ 
+
+  //*********************** GET THE STATUS OF USER BUYING FUNCTION *************************** 
 
 
   status() {
@@ -173,6 +180,7 @@ export class StocksComponent implements OnInit {
     })
   }
 
+// ****************************** SELL STOCK FUNCTION **********************************
 
   sellstock(Form: FormGroup) {
     let color = "danger";
@@ -217,6 +225,9 @@ export class StocksComponent implements OnInit {
       }
     });
   }
+
+  // ********************** LOGOUT FUNCTION ***********************************
+  
   logout() {
     ls.remove("#qwAs?.,s");
     ls.remove("qsc@1!%^36");

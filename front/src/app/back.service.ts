@@ -21,7 +21,6 @@ export class BackService {
   }
   adduser(email:any,stock:any,qty:any,invested:any):Observable<object>{
     console.log("Add user function is called...");
-    let actoken = ls.get('wqewq234!2@', { decrypt: true, secret: 88 });
     return this._http.post("http://localhost:3000/user",{id:email,stockname:stock,qty:qty,invested:invested}); 
   }
   getstatus(email:any):Observable<object>{
@@ -30,14 +29,13 @@ export class BackService {
   }
   sell(email:any,stock:any,qty:any):Observable<object>{
     console.log("Back service of email is called");
-    let actoken = ls.get('wqewq234!2@', { decrypt: true, secret: 88 });
-    return this._http.post("http://localhost:3000/sell",{id:email,name:stock,qty:qty,actoken:actoken});
+    return this._http.post("http://localhost:3000/sell",{id:email,name:stock,qty:qty});
   }
   login(email:any,password:any):Observable<object>{
     console.log("back service login function called...")
-    return this._http.get(`http://localhost:3000/login?email=${email}&password=${password}`);
+    return this._http.post("http://localhost:3000/login",{email:email,password:password});
   }
   signup(email:any,password:any):Observable<object>{
-    return this._http.get(`http://localhost:3000/signup?email=${email}&password=${password}`);
+    return this._http.post("http://localhost:3000/signup",{email:email,password:password});
   }
 }

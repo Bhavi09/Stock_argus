@@ -14,14 +14,22 @@ export class LoginComponent implements OnInit {
   
   elsecheck = 0;
   myForm!: FormGroup;
+
+// *************** CONSTRUCTOR ************************************************
+
   constructor(private router: Router, private backservice: BackService, private authg: AuthGuard) { }
 
+//  ************** ngOnInit ***************************************************
+  
   ngOnInit(): void {
     this.myForm = new FormGroup({
       email: new FormControl('', [Validators.required, Validators.email]),
       password: new FormControl('', [Validators.required])
     })
   }
+
+  // ********************* TO STOCK FUNCTION **********************************
+
   tostock(Form: FormGroup) {
     const get = new Promise<any>((resolve, _reject) => {
       console.log("Checked Promise...")
@@ -55,6 +63,9 @@ export class LoginComponent implements OnInit {
       }
     });
   }
+
+  // ****************** IS FORM VALID FUNCTION JUST FOR TESTING *****************************
+  
   isFormValid():Boolean{
     return this.myForm.valid;
   }
