@@ -4,18 +4,30 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
 import { RouterTestingModule } from '@angular/router/testing';
+import { Observable, of } from 'rxjs';
+import { BackService } from '../back.service';
 
 import { SignupComponent } from './signup.component';
+
+
+class MockBackService{
+  signup():Observable<object>{
+    return of({ message: "user added" });
+  }
+}
+
 
 describe('SignupComponent', () => {
   let component: SignupComponent;
   let fixture: ComponentFixture<SignupComponent>;
+  let service:BackService;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports:[RouterTestingModule,HttpClientModule,FormsModule,ReactiveFormsModule,HttpClientTestingModule],
       declarations: [ SignupComponent ],
-      providers:[HttpClient]
+      providers:[HttpClient,
+        { provide:BackService, useClass:MockBackService }]
     })
     .compileComponents();
 
@@ -50,6 +62,50 @@ describe('SignupComponent', () => {
     fixture.detectChanges();
     expect(el.nativeElement.value).toEqual(dummyemail);
   });
-
   
+  it("should mark email as invalid when it has no value",()=>{
+    const ctrl = component.myForm.get('email');
+    ctrl?.setValue(null);
+    fixture.detectChanges();
+    expect(ctrl?.invalid).toBeTruthy();
+  });
+
+  it("should mark email as valid when it has some value and proper email",()=>{
+    const ctrl = component.myForm.get('email');
+    ctrl?.setValue('bhavimdell16@gmail.com');
+    fixture.detectChanges();
+    expect(ctrl?.valid).toBeTruthy();
+  });
+
+  it("should mark password as invalid when it has no value",()=>{
+    const ctrl = component.myForm.get('password');
+    ctrl?.setValue(null);
+    fixture.detectChanges();
+    expect(ctrl?.invalid).toBeTruthy();
+  });
+
+  it("should call the tologin method when the signupform is submitted",()=>{
+    const el = fixture.debugElement.query(By.css('.signup-form'));
+    const fnc = spyOn(component,'tologin');
+    el.triggerEventHandler('ngSubmit',null);
+    expect(fnc).toHaveBeenCalled();
+  });
+
+  it("should true when isFormValid is called and the signupform is indeed valid",()=>{
+    const dummydata = {
+      email:"bhavimdell16@gmail.com",
+      password:"qwerty@123",
+      Repassword:"qwerty@123"
+
+    };
+    component.myForm.patchValue(dummydata);
+    fixture.detectChanges();
+    expect(component.isFormValid()).toBeTruthy();
+  });
+
+  it("should call signup from Backservice when tostock is called",()=>{
+    const fnc = spyOn(service,'login');
+    component.tologin(component.myForm);
+    expect(fnc).toHaveBeenCalled();
+  });
 });

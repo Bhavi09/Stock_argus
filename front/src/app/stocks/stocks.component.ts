@@ -145,6 +145,7 @@ export class StocksComponent implements OnInit {
           const el = document.createElement('li');
           el.setAttribute("class", "list-group-item d-flex justify-content-between align-items-center");
           el.innerHTML = `${element['name']}
+          <span class="badge bg-primary rounded-pill">${element['qty']}</span>
   <span class="badge bg-${color} rounded-pill">${element['diff']}</span>`;
           el3?.appendChild(el);
         }
